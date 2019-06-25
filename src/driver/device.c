@@ -2,6 +2,7 @@
 
 #include "device.h"
 #include "driver/ixgbe.h"
+#include "driver/igb.h"
 #include "driver/virtio.h"
 #include "pci.h"
 
@@ -22,7 +23,8 @@ struct ixy_device* ixy_init(const char* pci_addr, uint16_t rx_queues, uint16_t t
 	if (vendor_id == 0x1af4 && device_id >= 0x1000) {
 		return virtio_init(pci_addr, rx_queues, tx_queues);
 	} else {
+    // FIXME be more intelligent
 		// Our best guess is to try ixgbe
-		return ixgbe_init(pci_addr, rx_queues, tx_queues);
+		return igb_init(pci_addr, rx_queues, tx_queues);
 	}
 }

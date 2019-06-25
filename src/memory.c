@@ -68,7 +68,7 @@ struct dma_memory memory_allocate_dma(size_t size, bool require_contiguous) {
 		// unique filename, C11 stdatomic.h requires a too recent gcc, we want to support gcc 4.8
 		uint32_t id = __sync_fetch_and_add(&huge_pg_id, 1);
 		char path[PATH_MAX];
-		snprintf(path, PATH_MAX, "/mnt/huge/ixy-%d-%d", getpid(), id);
+		snprintf(path, PATH_MAX, "/dev/hugepages/ixy-%d-%d", getpid(), id);
 		// temporary file, will be deleted to prevent leaks of persistent pages
 		int fd = check_err(open(path, O_CREAT | O_RDWR, S_IRWXU), "open hugetlbfs file, check that /mnt/huge is mounted");
 		check_err(ftruncate(fd, (off_t) size), "allocate huge page memory, check hugetlbfs configuration");

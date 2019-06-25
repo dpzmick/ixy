@@ -7,7 +7,7 @@
 #include "driver/device.h"
 
 // number of packets sent simultaneously to our driver
-static const uint32_t BATCH_SIZE = 64;
+static const uint32_t BATCH_SIZE = 1024;
 
 // excluding CRC (offloaded by default)
 #define PKT_SIZE 60
